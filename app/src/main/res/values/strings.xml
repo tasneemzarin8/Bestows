@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Bestows</string>
+    <string name="pass_hint">Password</string>
+    <string name="email_hint">Your Email</string>
+    <string name="login_logo_desc">Bestow</string>
+    <string name="login_btn_text">Login to account</string>
+    <string name="login_reg_btn_text">Need a new account?</string>
+</resources>
