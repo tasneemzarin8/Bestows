@@ -5,49 +5,5 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainLogout">
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="316dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginEnd="0dp"
-        android:background="@drawable/coin" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="103dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="111dp"
-        android:background="#239956"
-        android:gravity="center"
-        android:text="Bestow"
-        android:textColor="#ffffff"
-        android:textSize="30dp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="123dp"
-        android:text="Religious Fundraiser and Donation App"
-        android:textColor="#ffffff" />
-
-    <Button
-        android:id="@+id/mainLogout"
-        android:layout_width="167dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="23dp"
-        android:background="#23a898"
-        android:text="Logout"
-        android:textColor="#ffffff"
-        android:textStyle="bold" />
 
 </RelativeLayout>

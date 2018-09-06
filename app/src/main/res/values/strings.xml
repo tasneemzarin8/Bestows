@@ -5,4 +5,11 @@
     <string name="login_logo_desc">Bestow</string>
     <string name="login_btn_text">Login to account</string>
     <string name="login_reg_btn_text">Need a new account?</string>
+    <string name="action_search_text">Search</string>
+    <string name="acount_settings_text">Account Settings</string>
+    <string name="action_logout_text">Logout</string>
+    <string name="reg_account_btn">Already have an account?</string>
+    <string name="reg_btn_text">Create new account</string>
+    <string name="reg_pass_text">Password</string>
+    <string name="reg_confirm_pass_text">Confirm Password</string>
 </resources>

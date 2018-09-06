@@ -16,18 +16,8 @@ public class MainLogout extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_logout);
-        logoutBtn=(Button) findViewById(R.id.next);
-        logoutBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                logOut();
-            }
-        });
+
     }
 
-    void logOut(){
-        FirebaseAuth.getInstance().signOut();
-        Intent intent = new Intent(MainLogout.this, LoginActivity.class);
-        startActivity(intent);
-    }
+
 }
