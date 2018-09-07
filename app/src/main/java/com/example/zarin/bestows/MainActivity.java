@@ -48,6 +48,10 @@ private FirebaseAuth mAuth;
             case  R.id.action_logout_btn:
             logout();
             return true;
+            case R.id.action_settings_btn:
+            Intent settingsIntent =new Intent(MainActivity.this,SetupActivity.class);
+            startActivity(settingsIntent);
+            return true;
 
             default:
                 return false;
