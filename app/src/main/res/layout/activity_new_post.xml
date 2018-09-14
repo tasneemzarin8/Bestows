@@ -6,6 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".NewPostActivity">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/new_post_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:background="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></android.support.v7.widget.Toolbar>
+
     <ImageView
         android:id="@+id/new_post_image"
         android:layout_width="0dp"
@@ -13,24 +23,21 @@
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/default_image" />
+        app:layout_constraintTop_toBottomOf="@+id/new_post_toolbar"
+        app:srcCompat="@drawable/post_placeholder" />
 
     <EditText
         android:id="@+id/new_post_desc"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
-        android:padding="16dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
-        android:maxLength="125"
-        android:textSize="18dp"
-        android:hint="@string/post_description_here"
+        android:hint="Description"
         android:inputType="textMultiLine"
+        android:maxLength="125"
+        android:padding="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/new_post_image" />
@@ -40,28 +47,27 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
-        android:background="@color/colorAccent"
-        android:text="@string/new_post_button"
-        android:textColor="#ffffff"
-        android:textAllCaps="false"
-        android:textSize="18dp"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="@color/colorAccent"
         android:padding="16dp"
+        android:text="Post"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/new_post_desc" />
 
     <ProgressBar
-        android:id="@+id/newPostProgress"
+        android:id="@+id/new_post_progress"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:indeterminate="true"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/new_post_image"
-        tools:visibility="invisible" />
+        app:layout_constraintTop_toTopOf="@+id/new_post_image" />
+
 </android.support.constraint.ConstraintLayout>

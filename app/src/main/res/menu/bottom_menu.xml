@@ -4,22 +4,22 @@
 
     <item
         android:id="@+id/bottom_action_home"
-        android:icon="@drawable/baseline_home_black_18dp"
+        android:icon="@drawable/ic_home_black_24dp"
         android:title="@string/bottom_home_text" />
     <item
-        android:id="@+id/bottom_action_notification"
-        android:icon="@drawable/baseline_notifications_black_18dp"
+        android:id="@+id/bottom_action_notif"
+        android:icon="@drawable/ic_notifications_black_24dp"
         android:title="@string/bottom_notification_text" />
     <item
         android:id="@+id/bottom_action_location"
         android:icon="@drawable/baseline_place_black_18dp"
-        android:title="@string/bottom_locations" />
+        android:title="Find Nearby" />
     <item
         android:id="@+id/bottom_action_chat"
         android:icon="@drawable/baseline_chat_black_18dp"
-        android:title="@string/bottom_chat" />
+        android:title="@string/bottom_chat_text" />
     <item
-        android:id="@+id/bottom_action_profile"
-        android:icon="@drawable/baseline_person_black_18dp"
-        android:title="@string/bottom_profile" />
+        android:id="@+id/bottom_action_account"
+        android:icon="@drawable/ic_person_black_24dp"
+        android:title="@string/bottom_ac_text" />
 </menu>
