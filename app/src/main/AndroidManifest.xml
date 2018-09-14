@@ -25,7 +25,6 @@
         <activity
             android:name=".LoginActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".MainLogout" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".SetupActivity" />
         <activity

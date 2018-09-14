@@ -2,7 +2,10 @@ package com.example.zarin.bestows;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -25,7 +28,12 @@ private FirebaseAuth mAuth;
 private FloatingActionButton addPostBtn;
 private FirebaseFirestore firebaseFirestore;
 private String current_user_id;
-
+private BottomNavigationView mainBottomNav;
+private HomeFragment homeFragment;
+private NotificationFragment notificationFragment;
+private ChatFragment chatFragment;
+private LocationFragment locationFragment;
+private ProfileFragment profileFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +47,40 @@ private String current_user_id;
         mainToolbar=(Toolbar) findViewById(R.id.main_toolbar);
         setSupportActionBar(mainToolbar);
         getSupportActionBar().setTitle("Bestow");
+        mainBottomNav=findViewById(R.id.mainBottomNav);
+        //Fragments
+        homeFragment=new HomeFragment();
+        notificationFragment=new NotificationFragment();
+        chatFragment=new ChatFragment();
+        locationFragment=new LocationFragment();
+        profileFragment=new ProfileFragment();
+        mainBottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId())
+                {
+                    case R.id.bottom_action_home :
+                        replaceFragament(homeFragment);
+                        return true;
+                    case R.id.bottom_action_chat :
+                        replaceFragament(chatFragment);
+                        return true;
+                    case R.id.bottom_action_location :
+                        replaceFragament(locationFragment);
+                        return true;
+                    case R.id.bottom_action_notification :
+                        replaceFragament(notificationFragment);
+                        return true;
+                    case R.id.bottom_action_profile :
+                        replaceFragament(profileFragment);
+                        return true;
+                        default:
+                            return false;
+
+                }
+            }
+        });
+
         addPostBtn=(FloatingActionButton) findViewById(R.id.add_post_button);
         addPostBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,5 +155,10 @@ private String current_user_id;
         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
         startActivity(intent);
         finish();
+    }
+    private  void replaceFragament(Fragment fragment){
+        FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.main_container,fragment);
+        fragmentTransaction.commit();
     }
 }

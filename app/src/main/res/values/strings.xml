@@ -16,4 +16,14 @@
     <string name="setup_account_btn_text">Save Account Settings</string>
     <string name="post_description_here">Add Description</string>
     <string name="new_post_button">Post</string>
+    <string name="bottom_home_text">Home</string>
+    <string name="bottom_notification_text">Notification</string>
+    <string name="bottom_location">Search Nearby</string>
+    <string name="Chat" />
+    <string name="bottom_locations">Find Nearby</string>
+    <string name="bottom_chat">Chat</string>
+    <string name="bottom_profile">Profile</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
