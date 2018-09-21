@@ -3,7 +3,9 @@ package com.example.zarin.bestows;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Point;
+import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateFormat;
 import android.view.Gravity;
@@ -92,8 +94,7 @@ public class BlogRecyclerAdapter extends RecyclerView.Adapter<BlogRecyclerAdapte
 
                 } else {
 
-                    //Firebase Exception
-
+                    String errorMessage = task.getException().getMessage();
                 }
 
             }
@@ -132,6 +133,7 @@ public class BlogRecyclerAdapter extends RecyclerView.Adapter<BlogRecyclerAdapte
 
         //Get Likes
         firebaseFirestore.collection("Posts/" + blogPostId + "/Likes").document(currentUserId).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onEvent(DocumentSnapshot documentSnapshot, FirebaseFirestoreException e) {
 

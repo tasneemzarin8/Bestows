@@ -197,17 +197,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void logOut() {
-
-
         mAuth.signOut();
         sendToLogin();
+        finish();
     }
 
     private void sendToLogin() {
 
-        Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
+        Intent loginIntent = new Intent(MainActivity.this, FrontPage.class);
         startActivity(loginIntent);
-        finish();
+
+
 
     }
 
