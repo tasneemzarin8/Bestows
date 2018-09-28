@@ -82,8 +82,8 @@ public class MainActivity extends AppCompatActivity {
 
                         case R.id.bottom_action_account:
 
-                            replaceFragment(accountFragment, currentFragment);
-                            return true;
+                            Intent profileIntent=new Intent(MainActivity.this,ProfileActivity.class);
+                            startActivity(profileIntent);
 
                         case R.id.bottom_action_notif:
 
