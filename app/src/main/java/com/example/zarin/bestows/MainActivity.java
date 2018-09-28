@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private NotificationFragment notificationFragment;
     private ProfileFragment accountFragment;
     private ChatFragment chatFragment;
-    private LocationFragment locationFragment;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
             notificationFragment = new NotificationFragment();
             accountFragment = new ProfileFragment();
             chatFragment=new ChatFragment();
-            locationFragment=new LocationFragment();
+//            locationFragment=new LocationFragment();
 
             initializeFragment();
 
@@ -93,8 +93,10 @@ public class MainActivity extends AppCompatActivity {
                             replaceFragment(chatFragment,currentFragment);
                             return true;
                         case R.id.bottom_action_location:
-                            replaceFragment(locationFragment,currentFragment);
-                            return true;
+                            Intent mapIntent=new Intent(MainActivity.this,MapsActivity.class);
+                            startActivity(mapIntent);
+//                            replaceFragment(locationFragment,currentFragment);
+//                            return true;
 
                         default:
                             return false;
@@ -220,13 +222,13 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.add(R.id.main_container, homeFragment);
         fragmentTransaction.add(R.id.main_container, notificationFragment);
         fragmentTransaction.add(R.id.main_container, accountFragment);
-        fragmentTransaction.add(R.id.main_container, locationFragment);
+//        fragmentTransaction.add(R.id.main_container, locationFragment);
         fragmentTransaction.add(R.id.main_container, chatFragment);
 
         fragmentTransaction.hide(notificationFragment);
         fragmentTransaction.hide(accountFragment);
         fragmentTransaction.hide(chatFragment);
-        fragmentTransaction.hide(locationFragment);
+//        fragmentTransaction.hide(locationFragment);
 
         fragmentTransaction.commit();
 
@@ -240,7 +242,7 @@ public class MainActivity extends AppCompatActivity {
             fragmentTransaction.hide(accountFragment);
             fragmentTransaction.hide(notificationFragment);
             fragmentTransaction.hide(chatFragment);
-            fragmentTransaction.hide(locationFragment);
+//            fragmentTransaction.hide(locationFragment);
 
         }
 
@@ -249,7 +251,7 @@ public class MainActivity extends AppCompatActivity {
             fragmentTransaction.hide(homeFragment);
             fragmentTransaction.hide(notificationFragment);
             fragmentTransaction.hide(chatFragment);
-            fragmentTransaction.hide(locationFragment);
+//            fragmentTransaction.hide(locationFragment);
         }
 
         if(fragment == notificationFragment){
@@ -257,21 +259,21 @@ public class MainActivity extends AppCompatActivity {
             fragmentTransaction.hide(homeFragment);
             fragmentTransaction.hide(accountFragment);
             fragmentTransaction.hide(chatFragment);
-            fragmentTransaction.hide(locationFragment);
+//            fragmentTransaction.hide(locationFragment);
         }
-        if(fragment == locationFragment){
-
-            fragmentTransaction.hide(homeFragment);
-            fragmentTransaction.hide(accountFragment);
-            fragmentTransaction.hide(chatFragment);
-            fragmentTransaction.hide(notificationFragment);
-        }
+//        if(fragment == locationFragment){
+//
+//            fragmentTransaction.hide(homeFragment);
+//            fragmentTransaction.hide(accountFragment);
+//            fragmentTransaction.hide(chatFragment);
+//            fragmentTransaction.hide(notificationFragment);
+//        }
         if(fragment == chatFragment){
 
             fragmentTransaction.hide(homeFragment);
             fragmentTransaction.hide(accountFragment);
             fragmentTransaction.hide(notificationFragment);
-            fragmentTransaction.hide(locationFragment);
+//            fragmentTransaction.hide(locationFragment);
         }
         fragmentTransaction.show(fragment);
 

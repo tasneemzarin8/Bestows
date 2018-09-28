@@ -25,15 +25,11 @@ GoogleMap mGoogleMap;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        initMap();
         return inflater.inflate(R.layout.fragment_location, container, false);
 
     }
 
-    private void initMap() {
-        Fragment mapFragment=(Fragment) getFragmentManager().findFragmentById(R.id.mapView);
-        mapFragment.getMAp
-    }
+
 
 
 }
