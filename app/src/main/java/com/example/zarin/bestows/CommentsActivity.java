@@ -16,6 +16,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -39,6 +40,8 @@ public class CommentsActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private String blog_post_id;
     private String current_user_id;
+    private String user_id;
+    private String userName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +68,25 @@ public class CommentsActivity extends AppCompatActivity {
         comment_list.setHasFixedSize(true);
         comment_list.setLayoutManager(new LinearLayoutManager(this));
         comment_list.setAdapter(commentsRecyclerAdapter);
+
+        user_id = firebaseAuth.getCurrentUser().getUid();
+        firebaseFirestore.collection("Users").document(user_id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+                if(task.isSuccessful()){
+
+                     userName= task.getResult().getString("name");
+
+
+                } else {
+
+                    String errorMessage = task.getException().getMessage();
+                }
+
+            }
+        });
+
 
         firebaseFirestore.collection("Posts/" + blog_post_id + "/Comments")
                 .addSnapshotListener(CommentsActivity.this, new EventListener<QuerySnapshot>() {
@@ -94,6 +116,7 @@ public class CommentsActivity extends AppCompatActivity {
                 commentsMap.put("message", comment_message);
                 commentsMap.put("user_id", current_user_id);
                 commentsMap.put("timestamp", FieldValue.serverTimestamp());
+                commentsMap.put("name",userName);
 
                 firebaseFirestore.collection("Posts/" + blog_post_id + "/Comments").add(commentsMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                     @Override

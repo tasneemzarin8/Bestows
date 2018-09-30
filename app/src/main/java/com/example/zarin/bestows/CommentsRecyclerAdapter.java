@@ -34,7 +34,10 @@ public class CommentsRecyclerAdapter extends RecyclerView.Adapter<CommentsRecycl
         holder.setIsRecyclable(false);
 
         String commentMessage = commentsList.get(position).getMessage();
-        holder.setComment_message(commentMessage);
+        holder.setComment_message("Donated $"+commentMessage);
+        String commentUsername = commentsList.get(position).getName();
+        holder.setComment_username(commentUsername);
+
 
     }
 
@@ -58,7 +61,7 @@ public class CommentsRecyclerAdapter extends RecyclerView.Adapter<CommentsRecycl
 
         private View mView;
 
-        private TextView comment_message;
+        private TextView comment_message,comment_username;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -69,6 +72,12 @@ public class CommentsRecyclerAdapter extends RecyclerView.Adapter<CommentsRecycl
 
             comment_message = mView.findViewById(R.id.comment_message);
             comment_message.setText(message);
+
+        }
+        public void setComment_username(String name){
+
+            comment_username = mView.findViewById(R.id.comment_username);
+            comment_username.setText(name);
 
         }
 

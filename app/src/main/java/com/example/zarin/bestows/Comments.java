@@ -4,17 +4,18 @@ import java.util.Date;
 
 public class Comments {
 
-    private String message, user_id;
+    private String message, user_id,name;
     private Date timestamp;
 
     public Comments(){
 
     }
 
-    public Comments(String message, String user_id, Date timestamp) {
+    public Comments(String message, String name, Date timestamp,String user_id) {
         this.message = message;
-        this.user_id = user_id;
+        this.name = name;
         this.timestamp = timestamp;
+        this.user_id=user_id;
     }
 
     public String getMessage() {
@@ -39,6 +40,14 @@ public class Comments {
 
     public void setTimestamp(Date timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
 

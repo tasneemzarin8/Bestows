@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:src="@drawable/profile_placeholder"
+        android:src="@drawable/donate"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -30,7 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="Loading Comment..."
+        android:text="Loading "
         app:layout_constraintStart_toEndOf="@+id/comment_image"
         app:layout_constraintTop_toBottomOf="@+id/comment_username" />
 
