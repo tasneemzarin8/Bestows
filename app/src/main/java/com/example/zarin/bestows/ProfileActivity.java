@@ -65,9 +65,9 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        Toolbar setupToolbar = findViewById(R.id.setupToolbar);
-        setSupportActionBar(setupToolbar);
-        getSupportActionBar().setTitle("Profile");
+//        Toolbar setupToolbar = findViewById(R.id.setupToolbar);
+//        setSupportActionBar(setupToolbar);
+//        getSupportActionBar().setTitle("Profile");
 
         firebaseAuth = FirebaseAuth.getInstance();
         user_id = firebaseAuth.getCurrentUser().getUid();
@@ -79,9 +79,9 @@ public class ProfileActivity extends AppCompatActivity {
         setupImage = findViewById(R.id.setup_image);
         setupName = findViewById(R.id.setup_name);
         setupDesc=findViewById(R.id.setup_desc);
-        setupProgress = findViewById(R.id.setup_progress);
+//        setupProgress = findViewById(R.id.setup_progress);
 
-        setupProgress.setVisibility(View.VISIBLE);
+//        setupProgress.setVisibility(View.VISIBLE);
 
         firebaseFirestore.collection("Users").document(user_id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -115,7 +115,7 @@ public class ProfileActivity extends AppCompatActivity {
 
                 }
 
-                setupProgress.setVisibility(View.INVISIBLE);
+//                setupProgress.setVisibility(View.INVISIBLE);
 
             }
         });
@@ -160,7 +160,7 @@ public class ProfileActivity extends AppCompatActivity {
 
                 }
 
-                setupProgress.setVisibility(View.INVISIBLE);
+//                setupProgress.setVisibility(View.INVISIBLE);
 
             }
         });

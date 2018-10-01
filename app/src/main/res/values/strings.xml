@@ -33,4 +33,6 @@
     <string name="bottom_chat_text">Chat</string>
     <string name="input_text_description">Description</string>
     <string name="title_activity_maps">Map</string>
+
+
 </resources>
