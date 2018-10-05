@@ -47,11 +47,13 @@ public class ProfileActivity extends AppCompatActivity {
     private CircleImageView setupImage;
     private Uri mainImageURI = null;
 
-    private String user_id;
+    private String user_id,current_user_id;
+    private String blog_post_id;
+    private Button withdraw_balance,add_balance;
 
     private boolean isChanged = false;
 
-    private TextView setupName,setupDesc;
+    private TextView setupName,setupDesc,setupBalance;
     private ProgressBar setupProgress;
 
     private StorageReference storageReference;
@@ -64,6 +66,8 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+        blog_post_id = getIntent().getStringExtra("blog_post_id");
+
 
 //        Toolbar setupToolbar = findViewById(R.id.setupToolbar);
 //        setSupportActionBar(setupToolbar);
@@ -71,6 +75,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
         user_id = firebaseAuth.getCurrentUser().getUid();
+        current_user_id = firebaseAuth.getCurrentUser().getUid();
 
         firebaseFirestore = FirebaseFirestore.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
@@ -79,6 +84,23 @@ public class ProfileActivity extends AppCompatActivity {
         setupImage = findViewById(R.id.setup_image);
         setupName = findViewById(R.id.setup_name);
         setupDesc=findViewById(R.id.setup_desc);
+        setupBalance=findViewById(R.id.balance);
+        withdraw_balance=findViewById(R.id.withdraw_balance);
+        add_balance=findViewById(R.id.add_balance);
+        add_balance.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent balanceIntent=new Intent(ProfileActivity.this,balance_add.class);
+                startActivity(balanceIntent);            }
+        });
+        withdraw_balance.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent balanceIntent=new Intent(ProfileActivity.this,balance_withdraw.class);
+                startActivity(balanceIntent);
+            }
+        });
+
 //        setupProgress = findViewById(R.id.setup_progress);
 
 //        setupProgress.setVisibility(View.VISIBLE);
@@ -119,44 +141,25 @@ public class ProfileActivity extends AppCompatActivity {
 
             }
         });
-
-
-    }
-
-    private void storeFirestore(@NonNull Task<UploadTask.TaskSnapshot> task, String user_name, String user_desc) {
-
-        Uri download_uri;
-
-        if(task != null) {
-
-            download_uri = task.getResult().getDownloadUrl();
-
-        } else {
-
-            download_uri = mainImageURI;
-
-        }
-
-        Map<String, String> userMap = new HashMap<>();
-        userMap.put("name", user_name);
-        userMap.put("desc",user_desc);
-        userMap.put("image", download_uri.toString());
-
-        firebaseFirestore.collection("Users").document(user_id).set(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+        ///////////////////////////////////////////////
+        firebaseFirestore.collection("Balance").document(current_user_id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
-            public void onComplete(@NonNull Task<Void> task) {
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
 
                 if(task.isSuccessful()){
 
-                    Toast.makeText(ProfileActivity.this, "The user Settings are updated.", Toast.LENGTH_LONG).show();
-                    Intent mainIntent = new Intent(ProfileActivity.this, MainActivity.class);
-                    startActivity(mainIntent);
-                    finish();
+                    if(task.getResult().exists()){
+
+                        double name = task.getResult().getDouble("balance");
+                        String names=Integer.toString((int) name);
+                                setupBalance.setText(names);
+
+                    }
 
                 } else {
 
                     String error = task.getException().getMessage();
-                    Toast.makeText(ProfileActivity.this, "(FIRESTORE Error) : " + error, Toast.LENGTH_LONG).show();
+                    Toast.makeText(ProfileActivity.this, "(FIRESTORE Retrieve Error) : " + error, Toast.LENGTH_LONG).show();
 
                 }
 
@@ -165,8 +168,9 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-
+/////////////////////////////////////////////////
     }
+//
 
     private void BringImagePicker() {
 

@@ -84,17 +84,18 @@ public class MainActivity extends AppCompatActivity {
 
                             Intent profileIntent=new Intent(MainActivity.this,ProfileActivity.class);
                             startActivity(profileIntent);
-
-                        case R.id.bottom_action_notif:
-
-                            replaceFragment(notificationFragment, currentFragment);
                             return true;
-                        case R.id.bottom_action_chat:
-                            replaceFragment(chatFragment,currentFragment);
-                            return true;
+//                        case R.id.bottom_action_notif:
+//
+//                            replaceFragment(notificationFragment, currentFragment);
+//                            return true;
+//                        case R.id.bottom_action_chat:
+//                            replaceFragment(chatFragment,currentFragment);
+//                            return true;
                         case R.id.bottom_action_location:
                             Intent mapIntent=new Intent(MainActivity.this,MapsActivity.class);
                             startActivity(mapIntent);
+                            return true;
 //                            replaceFragment(locationFragment,currentFragment);
 //                            return true;
 

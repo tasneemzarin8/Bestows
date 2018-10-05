@@ -33,7 +33,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/blog_desc"
-                app:srcCompat="@mipmap/action_like_gray" />
+                app:srcCompat="@mipmap/action_like_accent" />
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/blog_user_image"
@@ -95,7 +95,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:text="0 Likes"
+                android:text="Likes"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/blog_like_btn"
                 app:layout_constraintTop_toBottomOf="@+id/blog_desc" />

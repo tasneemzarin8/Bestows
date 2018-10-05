@@ -1,5 +1,7 @@
 package com.example.zarin.bestows;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +13,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -42,6 +46,8 @@ public class CommentsActivity extends AppCompatActivity {
     private String current_user_id;
     private String user_id;
     private String userName;
+    private int balance=0;
+    private String u_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,6 +112,63 @@ public class CommentsActivity extends AppCompatActivity {
                     }
                 });
 
+///////////////////////////////////
+        firebaseFirestore.collection("Posts").document(blog_post_id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+                if(task.isSuccessful()){
+
+
+                    if(task.getResult().exists()){
+
+                        String bal = task.getResult().getString("user_id");
+                        u_id=bal;
+
+                    }
+                    else{
+                        u_id=null;
+                    }
+
+                } else {
+                    String error = task.getException().getMessage();
+                    Toast.makeText(CommentsActivity.this, "(FIRESTORE Retrieve Error) : " + error, Toast.LENGTH_LONG).show();
+
+                }
+
+            }
+        });
+        ///////////////////////////////
+
+
+
+
+        firebaseFirestore.collection("Balance").document(current_user_id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                double bal=0;
+                if(task.isSuccessful()){
+
+
+                    if(task.getResult().exists()){
+
+                        bal = task.getResult().getDouble("balance");
+                        balance= (int) Math.round(bal);
+
+                    }
+                    else{
+                        balance=0;
+                    }
+
+                } else {
+                    String error = task.getException().getMessage();
+                    Toast.makeText(CommentsActivity.this, "(FIRESTORE Retrieve Error) : " + error, Toast.LENGTH_LONG).show();
+
+                }
+
+            }
+        });
+
         comment_post_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -117,19 +180,76 @@ public class CommentsActivity extends AppCompatActivity {
                 commentsMap.put("user_id", current_user_id);
                 commentsMap.put("timestamp", FieldValue.serverTimestamp());
                 commentsMap.put("name",userName);
+                int i=Integer.parseInt(comment_message);
+                int j=Integer.parseInt(comment_message);
+                if(i>balance){
+                    Toast.makeText(CommentsActivity.this,"Insufficient Balance",Toast.LENGTH_LONG).show();
+                }
+                else {
+                    balance = balance - i;
 
-                firebaseFirestore.collection("Posts/" + blog_post_id + "/Comments").add(commentsMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentReference> task) {
-                        if(!task.isSuccessful()){
+                    Map<String, Object> balanceMap = new HashMap<>();
+//                balanceMap.put("user_id", current_user_id);
+                    balanceMap.put("balance", balance);
 
-                            Toast.makeText(CommentsActivity.this, "Error Posting Comment : " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
 
-                        } else {
-                            comment_field.setText("");
+                    firebaseFirestore.collection("Posts/" + blog_post_id + "/Comments").add(commentsMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentReference> task) {
+                            if (!task.isSuccessful()) {
+
+                                Toast.makeText(CommentsActivity.this, "Error Posting Comment : " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+
+                            } else {
+                                comment_field.setText("");
+                            }
                         }
-                    }
-                });
+                    });
+                    firebaseFirestore.collection("Balance").document(current_user_id).set(balanceMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+
+                            if (task.isSuccessful()) {
+
+                                Toast.makeText(CommentsActivity.this, "Thank You For Donating!", Toast.LENGTH_LONG).show();
+
+                            } else {
+
+                                String error = task.getException().getMessage();
+                                Toast.makeText(CommentsActivity.this, "(FIRESTORE Error) : " + error, Toast.LENGTH_LONG).show();
+
+                            }
+
+
+                        }
+                    });
+
+                    balance = balance + i+i;
+
+                    balanceMap.put("balance", balance);
+
+                    firebaseFirestore.collection("Balance").document(u_id).set(balanceMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+
+                            if (task.isSuccessful()) {
+
+                                Toast.makeText(CommentsActivity.this, "Thank You For Donating!", Toast.LENGTH_LONG).show();
+
+                            } else {
+
+                                String error = task.getException().getMessage();
+                                Toast.makeText(CommentsActivity.this, "(FIRESTORE Error) : " + error, Toast.LENGTH_LONG).show();
+
+                            }
+
+
+                        }
+                    });
+
+
+
+                }
             }
         });
     }

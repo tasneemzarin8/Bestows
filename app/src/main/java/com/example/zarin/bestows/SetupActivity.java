@@ -275,7 +275,9 @@ public class SetupActivity extends AppCompatActivity {
         userMap.put("name", user_name);
         userMap.put("desc",user_desc);
         userMap.put("image", download_uri.toString());
-
+        Map<String, Object> balanceMap = new HashMap<>();
+//                balanceMap.put("user_id", current_user_id);
+        balanceMap.put("balance",0);
         firebaseFirestore.collection("Users").document(user_id).set(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
@@ -295,6 +297,24 @@ public class SetupActivity extends AppCompatActivity {
                 }
 
                 setupProgress.setVisibility(View.INVISIBLE);
+
+            }
+        });
+        firebaseFirestore.collection("Balance").document(user_id).set(balanceMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+
+                if(task.isSuccessful()){
+
+                    Toast.makeText(SetupActivity.this, "Balance.", Toast.LENGTH_LONG).show();
+
+                } else {
+
+                    String error = task.getException().getMessage();
+                    Toast.makeText(SetupActivity.this, "(FIRESTORE Error) : " + error, Toast.LENGTH_LONG).show();
+
+                }
+
 
             }
         });
