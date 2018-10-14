@@ -22,6 +22,11 @@ import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
@@ -82,22 +87,24 @@ import id.zelory.compressor.Compressor;
 
 public class SetupActivity extends AppCompatActivity {
 
+
     private CircleImageView setupImage;
     private Uri mainImageURI = null;
 
     private String user_id;
+    private String user_phone;
 
     private boolean isChanged = false;
 
-    private EditText setupName,setupDesc;
+    private EditText setupName,setupDesc,setupphone;
     private Button setupBtn;
     private ProgressBar setupProgress;
 
     private StorageReference storageReference;
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore firebaseFirestore;
-
     private Bitmap compressedImageFile;
+    DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,11 +125,16 @@ public class SetupActivity extends AppCompatActivity {
         setupImage = findViewById(R.id.setup_image);
         setupName = findViewById(R.id.setup_name);
         setupDesc=findViewById(R.id.setup_desc);
+        setupphone=findViewById(R.id.setup_phone);
         setupBtn = findViewById(R.id.setup_btn);
         setupProgress = findViewById(R.id.setup_progress);
 
         setupProgress.setVisibility(View.VISIBLE);
         setupBtn.setEnabled(false);
+
+
+
+
 
         firebaseFirestore.collection("Users").document(user_id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -134,12 +146,15 @@ public class SetupActivity extends AppCompatActivity {
 
                         String name = task.getResult().getString("name");
                         String desc= task.getResult().getString("desc");
+                        String phone = task.getResult().getString("Phone");
                         String image = task.getResult().getString("image");
+
 
                         mainImageURI = Uri.parse(image);
 
                         setupName.setText(name);
                         setupDesc.setText(desc);
+                        setupphone.setText(phone);
 
                         RequestOptions placeholderRequest = new RequestOptions();
                         placeholderRequest.placeholder(R.drawable.default_image);
@@ -169,6 +184,7 @@ public class SetupActivity extends AppCompatActivity {
 
                 final String user_name = setupName.getText().toString();
                 final String user_desc= setupDesc.getText().toString();
+                final String user_phone=setupphone.getText().toString();
 
                 if (!TextUtils.isEmpty(user_name) && mainImageURI != null) {
 
@@ -202,7 +218,7 @@ public class SetupActivity extends AppCompatActivity {
                             public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
 
                                 if (task.isSuccessful()) {
-                                    storeFirestore(task, user_name,user_desc);
+                                    storeFirestore(task, user_name,user_desc,user_phone);
 
                                 } else {
 
@@ -217,7 +233,7 @@ public class SetupActivity extends AppCompatActivity {
 
                     } else {
 
-                        storeFirestore(null, user_name,user_desc);
+                        storeFirestore(null, user_name,user_desc,user_phone);
 
                     }
 
@@ -257,7 +273,10 @@ public class SetupActivity extends AppCompatActivity {
 
     }
 
-    private void storeFirestore(@NonNull Task<UploadTask.TaskSnapshot> task, String user_name, String user_desc) {
+
+
+
+    private void storeFirestore(@NonNull Task<UploadTask.TaskSnapshot> task, String user_name, String user_desc,String user_phone) {
 
         Uri download_uri;
 
@@ -274,10 +293,9 @@ public class SetupActivity extends AppCompatActivity {
         Map<String, String> userMap = new HashMap<>();
         userMap.put("name", user_name);
         userMap.put("desc",user_desc);
+        userMap.put("phone",user_phone);
         userMap.put("image", download_uri.toString());
-        Map<String, Object> balanceMap = new HashMap<>();
-//                balanceMap.put("user_id", current_user_id);
-        balanceMap.put("balance",0);
+
         firebaseFirestore.collection("Users").document(user_id).set(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
@@ -297,24 +315,6 @@ public class SetupActivity extends AppCompatActivity {
                 }
 
                 setupProgress.setVisibility(View.INVISIBLE);
-
-            }
-        });
-        firebaseFirestore.collection("Balance").document(user_id).set(balanceMap).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-
-                if(task.isSuccessful()){
-
-                    Toast.makeText(SetupActivity.this, "Balance.", Toast.LENGTH_LONG).show();
-
-                } else {
-
-                    String error = task.getException().getMessage();
-                    Toast.makeText(SetupActivity.this, "(FIRESTORE Error) : " + error, Toast.LENGTH_LONG).show();
-
-                }
-
 
             }
         });
