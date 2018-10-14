@@ -191,6 +191,16 @@ public class BlogRecyclerAdapter extends RecyclerView.Adapter<BlogRecyclerAdapte
             }
         });
 
+        holder.blogcallBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent callIntent = new Intent(context,CallActivity.class);
+                callIntent.putExtra("blog_post_id", blogPostId);
+                context.startActivity(callIntent);
+
+            }
+        });
+
 
 
     }
