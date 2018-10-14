@@ -72,7 +72,10 @@ public class BlogRecyclerAdapter extends RecyclerView.Adapter<BlogRecyclerAdapte
         final String currentUserId = firebaseAuth.getCurrentUser().getUid();
 
         String desc_data = blog_list.get(position).getDesc();
+        String phone = blog_list.get(position).getUser_phone();
+
         holder.setDescText(desc_data);
+        holder.setDesphone(phone);
 
         String image_url = blog_list.get(position).getImage_url();
         String thumbUri = blog_list.get(position).getImage_thumb();
@@ -151,7 +154,7 @@ public class BlogRecyclerAdapter extends RecyclerView.Adapter<BlogRecyclerAdapte
 //        });
 
         //Likes Feature
-        holder.blogLikeBtn.setOnClickListener(new View.OnClickListener() {
+     /*   holder.blogLikeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -175,7 +178,7 @@ public class BlogRecyclerAdapter extends RecyclerView.Adapter<BlogRecyclerAdapte
                     }
                 });
             }
-        });
+        });*/
 
         holder.blogCommentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -187,6 +190,8 @@ public class BlogRecyclerAdapter extends RecyclerView.Adapter<BlogRecyclerAdapte
 
             }
         });
+
+
 
     }
 
@@ -201,14 +206,14 @@ public class BlogRecyclerAdapter extends RecyclerView.Adapter<BlogRecyclerAdapte
         private View mView;
 
         private TextView descView;
+        private TextView phoneView;
         private ImageView blogImageView;
         private TextView blogDate;
 
         private TextView blogUserName;
         private CircleImageView blogUserImage;
 
-        private ImageView blogLikeBtn;
-        private TextView blogLikeCount;
+        private ImageView blogcallBtn;
 
         private ImageView blogCommentBtn;
 
@@ -217,15 +222,9 @@ public class BlogRecyclerAdapter extends RecyclerView.Adapter<BlogRecyclerAdapte
             super(itemView);
             mView = itemView;
 
-            blogLikeBtn = mView.findViewById(R.id.blog_like_btn);
+            blogcallBtn = mView.findViewById(R.id.blog_call_btn);
             blogCommentBtn = mView.findViewById(R.id.blog_comment_icon);
-            blogLikeBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    blogLikeBtn.setImageDrawable(context.getDrawable(R.mipmap.action_like_accent));
 
-                }
-            });
 
         }
 
@@ -235,6 +234,14 @@ public class BlogRecyclerAdapter extends RecyclerView.Adapter<BlogRecyclerAdapte
             descView.setText(descText);
 
         }
+
+        public void setDesphone(String descText){
+
+            phoneView = mView.findViewById(R.id.blog_phone);
+            phoneView.setText(descText);
+
+        }
+
 
         public void setBlogImage(String downloadUri, String thumbUri){
 
@@ -270,12 +277,6 @@ public class BlogRecyclerAdapter extends RecyclerView.Adapter<BlogRecyclerAdapte
 
         }
 
-        public void updateLikesCount(int count){
-
-            blogLikeCount = mView.findViewById(R.id.blog_like_count);
-            blogLikeCount.setText(count + " Likes");
-
-        }
 
     }
 

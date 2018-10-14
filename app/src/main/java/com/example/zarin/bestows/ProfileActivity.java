@@ -46,6 +46,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     private CircleImageView setupImage;
     private Uri mainImageURI = null;
+    private String  user_phone;
 
     private String user_id,current_user_id;
     private String blog_post_id;
@@ -53,7 +54,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     private boolean isChanged = false;
 
-    private TextView setupName,setupDesc,setupBalance;
+    private TextView setupName,setupDesc,setupBalance,setupphone;
     private ProgressBar setupProgress;
 
     private StorageReference storageReference;
@@ -84,6 +85,7 @@ public class ProfileActivity extends AppCompatActivity {
         setupImage = findViewById(R.id.setup_image);
         setupName = findViewById(R.id.setup_name);
         setupDesc=findViewById(R.id.setup_desc);
+        setupphone=findViewById(R.id.setup_phone);
         setupBalance=findViewById(R.id.balance);
         withdraw_balance=findViewById(R.id.withdraw_balance);
         add_balance=findViewById(R.id.add_balance);
@@ -116,11 +118,13 @@ public class ProfileActivity extends AppCompatActivity {
                         String name = task.getResult().getString("name");
                         String desc= task.getResult().getString("desc");
                         String image = task.getResult().getString("image");
+                        String phone = task.getResult().getString("phone");
 
                         mainImageURI = Uri.parse(image);
 
                         setupName.setText(name);
                         setupDesc.setText(desc);
+                        setupphone.setText(phone);
 
                         RequestOptions placeholderRequest = new RequestOptions();
                         placeholderRequest.placeholder(R.drawable.default_image);

@@ -46,6 +46,7 @@ public class NewPostActivity extends AppCompatActivity {
 
     private ImageView newPostImage;
     private EditText newPostDesc;
+    private EditText newPostNo;
     private Button newPostBtn;
 
     private Uri postImageUri = null;
@@ -78,6 +79,7 @@ public class NewPostActivity extends AppCompatActivity {
 
         newPostImage = findViewById(R.id.new_post_image);
         newPostDesc = findViewById(R.id.new_post_desc);
+        newPostNo =findViewById(R.id.new_post_phone);
         newPostBtn = findViewById(R.id.post_btn);
         newPostProgress = findViewById(R.id.new_post_progress);
 
@@ -99,6 +101,7 @@ public class NewPostActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 final String desc = newPostDesc.getText().toString();
+                final String phone = newPostNo.getText().toString();
 
                 if(!TextUtils.isEmpty(desc) && postImageUri != null){
 
@@ -166,6 +169,7 @@ public class NewPostActivity extends AppCompatActivity {
                                         postMap.put("image_thumb", downloadthumbUri);
                                         postMap.put("desc", desc);
                                         postMap.put("user_id", current_user_id);
+                                        postMap.put("user_phone",phone);
                                         postMap.put("timestamp", FieldValue.serverTimestamp());
 
                                         firebaseFirestore.collection("Posts").add(postMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
