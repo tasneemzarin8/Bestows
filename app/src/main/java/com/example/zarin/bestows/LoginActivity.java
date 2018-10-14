@@ -25,6 +25,7 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private ProgressBar loginProgress;
     private TextView forgetpassword;
+    private TextView pass123;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
