@@ -70,6 +70,13 @@
                     android:inputType="textPassword" />
             </android.support.design.widget.TextInputLayout>
 
+            <TextView
+                android:id="@+id/forget_pass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Forget Password?"
+                android:textColor="#fff"
+                android:textSize="12sp"/>
 
 
             <Button

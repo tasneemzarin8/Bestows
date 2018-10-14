@@ -84,7 +84,8 @@
             android:name=".ProfileActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".balance_withdraw" />
-        <activity android:name=".balance_add"></activity>
+        <activity android:name=".balance_add" />
+        <activity android:name=".passwordActivity"></activity>
     </application>
 
 </manifest>
